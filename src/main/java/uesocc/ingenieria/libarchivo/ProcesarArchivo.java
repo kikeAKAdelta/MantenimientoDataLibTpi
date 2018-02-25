@@ -54,13 +54,13 @@ public class ProcesarArchivo  implements Serializable{
             String cadena, vectorcadena[];
             try {
                 while ((cadena = br.readLine())!=null) {
-                    vectorcadena = cadena.split(",");
+                    vectorcadena = cadena.split(", ");
                     lista.addAll(Arrays.asList(vectorcadena));
                 }
-//                for (Iterator<Object> it = lista.iterator(); it.hasNext();) {
-//                    String string = it.next().toString();
-//                    System.out.println(string);
-//                }
+                for (Iterator<Object> it = lista.iterator(); it.hasNext();) {
+                    String string = it.next().toString();
+                    System.out.println(string);
+                }
                 
                
             } catch (Exception ex) {
