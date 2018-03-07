@@ -34,8 +34,9 @@ public class ProcesarArchivo  implements Serializable{
             lista = paths.map(p -> {
             if (Files.isRegularFile(p) && p.toString().endsWith(".csv")) {
                 return p.toString(); 
+            }else{
+                return "";
             }
-            return "";
             })
             .collect(Collectors.toList());
             lista.remove("");
