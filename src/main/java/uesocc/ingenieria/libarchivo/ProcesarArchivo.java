@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package uesocc.ingenieria.libarchivo;
+
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
@@ -18,17 +19,16 @@ import java.util.stream.Stream;
  * @author sergio
  */
 public class ProcesarArchivo  implements Serializable{
-    public boolean validar(final String path){
+    
+    public boolean Validar(final String path){
         //Path dir = Paths.get(path);
-        if (path != null && path.trim().isEmpty()) {
-            if(Paths.get(path).toFile().isFile()){
-                return true;                
-            }
+        if (path != null && path.trim().isEmpty()==false) {
+            return Paths.get(path).toFile().exists();   
         }
         return false;
     }
     
-    public List<String> ObtenerCSV(String a) throws IOException{
+    public List<String> ObtenerCSV(final String a) throws IOException{
         List<String> lista = null;
         try (Stream<Path> paths = Files.walk(Paths.get(a))) {
             lista = paths.map(p -> {
