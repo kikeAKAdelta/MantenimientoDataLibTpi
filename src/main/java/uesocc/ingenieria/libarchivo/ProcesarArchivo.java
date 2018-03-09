@@ -5,14 +5,14 @@
  */
 package uesocc.ingenieria.libarchivo;
 
-import java.io.File;
+
 import java.nio.file.Paths;
 import java.nio.file.Path;
 import java.nio.file.Files;
 import java.io.IOException;
 import java.io.Serializable;
-import java.nio.file.FileSystems;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -51,19 +51,20 @@ public class ProcesarArchivo  implements Serializable{
     
     
     
-    public List<List<String>> parser(String path, boolean saltarLinea, String separador) throws IOException{
-        List<List<String>> listado=new ArrayList<List<String>>();  //Algo asi como que una lista multidimensional
+    public List<List<String>> parser(final String path, final boolean saltarLinea, final String separador) throws IOException{
+        List<List<String>> listado=new ArrayList<>();  //Algo asi como que una lista multidimensional
         
         if (Validar(path)) { //llamamos al metodo validar que creamos
-            
-            Files.lines(Paths.get(path)).skip(saltarLinea?1:0).
-                    filter(L -> L.contains(separador))
-                    .forEach(L -> {
-            String[] sepa=L.split(separador);
-        });  
-            
-            
-            
+            try (Stream<String> lines = Files.lines(Paths.get(path))) {
+            lines.skip(saltarLinea?1:0).filter(l->l.contains(separador)).
+                    forEach(s -> {
+                String[] separado = s.split(separador);
+                List<String> lista = null;
+                lista.addAll(Arrays.asList(separado));
+                listado.add(lista);
+                    });
+            return listado;
+            }
         }
         
         return listado;
