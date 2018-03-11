@@ -35,11 +35,11 @@ public class ProcesarArchivo  implements Serializable{
         List<String> lista = null;
         try (Stream<Path> paths = Files.walk(Paths.get(a))) {
             lista = paths.map(p -> {
-            if (Files.isRegularFile(p) && p.toString().endsWith(".csv")) {
-                return p.toString(); 
-            }else{
-                return "";
-            }
+                if (Files.isWritable(p) && Files.isReadable(p) && Files.isRegularFile(p) && p.toString().endsWith(".csv")) {
+                    return p.toString();
+                }else{
+                    return "";
+                }
             })
             .collect(Collectors.toList());
             lista.remove("");
@@ -48,8 +48,6 @@ public class ProcesarArchivo  implements Serializable{
         }
         return lista;
     }
-    
-    
     
     public List<List<String>> parser(final String path, final boolean saltarLinea, final String separador) throws IOException{
         List<List<String>> listado=new ArrayList<>();  //Algo asi como que una lista multidimensional
