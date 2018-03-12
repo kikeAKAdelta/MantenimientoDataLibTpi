@@ -7,8 +7,11 @@ package uesocc.ingenieria.libarchivo;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.ListModel;
 
@@ -36,6 +39,8 @@ public class FrmArchivo extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         txtArchivo = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -47,6 +52,13 @@ public class FrmArchivo extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane3.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -140,7 +152,14 @@ public class FrmArchivo extends javax.swing.JFrame {
         ProcesarArchivo pa = new ProcesarArchivo();
         try {
             pa.Validar(txtArchivo.getText());
-            Lista.setModel((ListModel<String>) pa.ObtenerCSV(txtArchivo.getText()));
+            DefaultListModel modelo = new DefaultListModel();
+            List<String> lista = pa.ObtenerCSV(txtArchivo.getText());
+            for (int i = 1; i < lista.size(); i++) {
+                modelo.addElement(lista.get(i));
+                //System.out.println(lista.get(i));
+            }
+            Lista.setModel(modelo);
+            
         } catch (IOException ex) {
             Logger.getLogger(FrmArchivo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -187,8 +206,10 @@ public class FrmArchivo extends javax.swing.JFrame {
     private javax.swing.JButton btnDirectorio;
     private javax.swing.JButton btnEnviar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextArea jTextArea1;
     public static javax.swing.JTextField txtArchivo;
     // End of variables declaration//GEN-END:variables

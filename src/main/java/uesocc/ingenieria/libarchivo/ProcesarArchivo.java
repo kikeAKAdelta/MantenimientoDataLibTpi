@@ -26,27 +26,30 @@ public class ProcesarArchivo  implements Serializable{
     public boolean Validar(final String path){
         //Path dir = Paths.get(path);
         if (path != null && path.trim().isEmpty()==false) {
-            return Paths.get(path).toFile().exists();   
+            return Paths.get(path).toFile().isDirectory();   
         }
         return false;
     }
     
-    public List<String> ObtenerCSV(final String a) throws IOException{
+    public List<String> ObtenerCSV(String a) throws IOException{
+        if (Validar(a)) {
         List<String> lista = null;
         try (Stream<Path> paths = Files.walk(Paths.get(a))) {
             lista = paths.map(p -> {
-                if (Files.isWritable(p) && Files.isReadable(p) && Files.isRegularFile(p) && p.toString().endsWith(".csv")) {
+                if (Files.isRegularFile(p) && p.toString().endsWith(".csv")) {
                     return p.toString();
                 }else{
                     return "";
-                }
+                }                
             })
             .collect(Collectors.toList());
-            lista.remove("");
+            lista.remove("");   
         } catch (IOException e) {
             e.printStackTrace();
         }
         return lista;
+        }
+        return null;
     }
     
     public List<List<String>> parser(final String path, final boolean saltarLinea, final String separador) throws IOException{
