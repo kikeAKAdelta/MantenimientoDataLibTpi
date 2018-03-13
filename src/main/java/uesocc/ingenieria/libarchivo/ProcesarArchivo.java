@@ -31,19 +31,17 @@ public class ProcesarArchivo  implements Serializable{
         return false;
     }
     
-    public List<String> ObtenerCSV(String a) throws IOException{
-        if (Validar(a)) {
+    public List<String> ObtenerCSV(String path) throws IOException{
+        if (Validar(path)) {
         List<String> lista = null;
-        try (Stream<Path> paths = Files.walk(Paths.get(a))) {
-            lista = paths.map(p -> {
-                if (Files.isRegularFile(p) && p.toString().endsWith(".csv")) {
-                    return p.toString();
-                }else{
-                    return "";
-                }                
-            })
-            .collect(Collectors.toList());
-            lista.remove("");   
+        try (Stream<Path> paths = Files.walk(Paths.get(path))) {
+            lista = paths.filter(a-> 
+                    Files.isRegularFile(a)&&Files.isWritable(a)&&Files.isReadable(a)&&a.toString().endsWith(".csv")).map(p-> 
+                            p.toString()).collect(Collectors.toList());
+
+            for (String lista1 : lista) {
+                System.out.println(lista1);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -154,8 +154,8 @@ public class FrmArchivo extends javax.swing.JFrame {
             pa.Validar(txtArchivo.getText());
             DefaultListModel modelo = new DefaultListModel();
             List<String> lista = pa.ObtenerCSV(txtArchivo.getText());
-            for (int i = 1; i < lista.size(); i++) {
-                modelo.addElement(lista.get(i));
+            for (String list: lista) {
+                modelo.addElement(list);
                 //System.out.println(lista.get(i));
             }
             Lista.setModel(modelo);
