@@ -36,19 +36,15 @@ public class ProcesarArchivo  implements Serializable{
         List<String> lista = null;
         try (Stream<Path> paths = Files.walk(Paths.get(path), 0)) {//el 0 es para que solo vea los directorios
             lista = paths.filter(a-> 
-                    Files.isRegularFile(a)&&Files.isWritable(a)&&Files.isReadable(a)&&a.toString().endsWith(".csv")).map(p-> 
-                            p.toString()).collect(Collectors.toList());//filtrando y enviando a la lista los paths +
-
-           
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                    Files.isRegularFile(a)&&Files.isReadable(a)&&Files.isWritable(a)&&a.toString().endsWith(".csv")).map(p-> 
+                            p.toString()).collect(Collectors.toList());//filtrando y enviando a la lista los paths     
+        } 
         return lista;
         }
         return null;
     }
     
-    public List<List<String>> parser(final String path, final boolean saltarLinea, final String separador) throws IOException{
+    public List<List<String>> Parser(final String path, final boolean saltarLinea, final String separador) throws IOException{
         List<List<String>> listado=new ArrayList<>();  //Algo asi como que una lista multidimensional
         
         if (Validar(path)) { //llamamos al metodo validar que creamos

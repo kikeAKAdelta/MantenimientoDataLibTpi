@@ -153,13 +153,13 @@ public class FrmArchivo extends javax.swing.JFrame {
         // TODO add your handling code here:
         ProcesarArchivo pa = new ProcesarArchivo();
         try {
-            pa.Validar(txtArchivo.getText());
+            
             DefaultListModel modelo = new DefaultListModel();
             List<String> lista = pa.ObtenerCSV(txtArchivo.getText());
-            for (String list: lista) {
+            lista.stream().forEach((list) -> {
                 modelo.addElement(list);
-                //System.out.println(lista.get(i));
-            }
+                System.out.println(list);
+            });
             Lista.setModel(modelo);
             
         } catch (IOException ex) {
