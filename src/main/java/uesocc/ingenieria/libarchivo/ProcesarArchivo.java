@@ -26,7 +26,9 @@ public class ProcesarArchivo  implements Serializable{
     public boolean Validar(final String path){
         //Path dir = Paths.get(path);
         if (path != null && path.trim().isEmpty()==false) {
-            return Paths.get(path).toFile().isDirectory();   
+            if(Paths.get(path).toFile().isDirectory()||Paths.get(path).toFile().isFile()){
+                return true;
+            }   
         }
         return false;
     }
@@ -51,9 +53,9 @@ public class ProcesarArchivo  implements Serializable{
     public List<List<String>> Parser(final String path, final boolean saltarLinea, final String separador) throws IOException{
         List<List<String>> listado=new ArrayList<>();  //Algo asi como que una lista multidimensional
         
-        if (Validar(path)) { //llamamos al metodo validar que creamos
+        if (Validar(path)) { 
             try (Stream<String> lines = Files.lines(Paths.get(path))) {
-            lines.skip(saltarLinea?1:0).filter(l->l.contains(separador)).
+            lines.skip(saltarLinea?1:0).filter(l->l.contains(",")).
                     forEach(s -> {
                 String[] separado = s.split(separador);   
                 listado.add(Arrays.asList(separado));
