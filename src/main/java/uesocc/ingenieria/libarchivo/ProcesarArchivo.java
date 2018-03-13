@@ -55,10 +55,8 @@ public class ProcesarArchivo  implements Serializable{
             try (Stream<String> lines = Files.lines(Paths.get(path))) {
             lines.skip(saltarLinea?1:0).filter(l->l.contains(separador)).
                     forEach(s -> {
-                String[] separado = s.split(separador);
-                List<String> lista = null;
-                lista.addAll(Arrays.asList(separado));
-                listado.add(lista);
+                String[] separado = s.split(separador);   
+                listado.add(Arrays.asList(separado));
                     });
             return listado;
             }
