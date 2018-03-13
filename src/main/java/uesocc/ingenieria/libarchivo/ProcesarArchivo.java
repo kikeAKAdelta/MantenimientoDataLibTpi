@@ -34,10 +34,14 @@ public class ProcesarArchivo  implements Serializable{
     public List<String> ObtenerCSV(String path) throws IOException{
         if (Validar(path)) {
         List<String> lista = null;
-        try (Stream<Path> paths = Files.walk(Paths.get(path), 0)) {//el 0 es para que solo vea los directorios
+        try (Stream<Path> paths = Files.walk(Paths.get(path),1)) {//el 1 es para que solo vea los directorios
             lista = paths.filter(a-> 
                     Files.isRegularFile(a)&&Files.isReadable(a)&&Files.isWritable(a)&&a.toString().endsWith(".csv")).map(p-> 
-                            p.toString()).collect(Collectors.toList());//filtrando y enviando a la lista los paths     
+                            p.toString()).collect(Collectors.toList());//filtrando y enviando a la lista los paths
+            lista.stream().forEach((list) -> {
+                
+               // System.out.println(list);
+            });
         } 
         return lista;
         }

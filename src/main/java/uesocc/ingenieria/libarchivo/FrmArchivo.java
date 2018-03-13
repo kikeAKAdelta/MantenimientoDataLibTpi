@@ -158,7 +158,7 @@ public class FrmArchivo extends javax.swing.JFrame {
             List<String> lista = pa.ObtenerCSV(txtArchivo.getText());
             lista.stream().forEach((list) -> {
                 modelo.addElement(list);
-                System.out.println(list);
+                //System.out.println(list);
             });
             Lista.setModel(modelo);
             
