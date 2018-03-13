@@ -26,6 +26,8 @@ public class FrmArchivo extends javax.swing.JFrame {
      */
     public FrmArchivo() {
         initComponents();
+           this.setLocationRelativeTo(null); 
+
     }
 
     /**
@@ -61,6 +63,8 @@ public class FrmArchivo extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setResizable(false);
 
         jLabel1.setText("Path:");
 
