@@ -14,6 +14,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -50,21 +52,26 @@ public class ProcesarArchivo  implements Serializable{
         return null;
     }
     
-    public List<List<String>> Parser(final String path, final boolean saltarLinea, final String separador) throws IOException{
-        List<List<String>> listado=new ArrayList<>();  //Algo asi como que una lista multidimensional
+    public List<List<String>> Parser(final List<String> paths, final boolean saltarLinea, final String separador) throws IOException{
+        List<List<String>> listado=new ArrayList<>();  //Algo asi como que una lista multidimensional     
+        paths.forEach(p->{
+            if (Validar(p)) {
+                try (Stream<String> lines = Files.lines(Paths.get(p))) {
+                    lines.skip(saltarLinea?1:0).filter(l->l.contains(separador)).
+                            forEach(s -> {
+                                String[] separado = s.split(separador);
+                                List<String> lista = new ArrayList<>();
+                                for (String string : separado) {
+                            lista.add(string.trim());
+                        }
+                                listado.add(lista);
+                            });
+                } catch (IOException ex) {
+                    Logger.getLogger(ProcesarArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }});
         
-        if (Validar(path)) { 
-            try (Stream<String> lines = Files.lines(Paths.get(path))) {
-            lines.skip(saltarLinea?1:0).filter(l->l.contains(",")).
-                    forEach(s -> {
-                String[] separado = s.split(separador);   
-                listado.add(Arrays.asList(separado));
-                    });
-            return listado;
-            }
-        }
-        
-        return null;
+        return listado;
     }
     }
 

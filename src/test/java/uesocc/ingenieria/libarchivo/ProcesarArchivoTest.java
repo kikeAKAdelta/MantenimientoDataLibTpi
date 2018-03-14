@@ -30,13 +30,15 @@ public class ProcesarArchivoTest {
     public TemporaryFolder DirPrueba = new  TemporaryFolder();
     @Test
     public void crearArchivosTemp() throws IOException {
-        String content = "esto, es, una, prueba";
+        String content = "esto, es, una, prueba", conten1 = "esto, es, otra, prueba";
         File tempfile = DirPrueba.newFile("prueba.csv");
+        File tempfile1 = DirPrueba.newFile("prueba1.csv");
         try (FileWriter fw = new FileWriter(tempfile.getAbsolutePath()); PrintWriter pw = new PrintWriter(fw)) {
             pw.println(content);
-        }    
-        System.out.println(tempfile);
-        System.out.println("Url Folder de prueba " + DirPrueba.getRoot().toString());
+        }
+        try (FileWriter fw = new FileWriter(tempfile1.getAbsolutePath()); PrintWriter pw = new PrintWriter(fw)) {
+            pw.println(conten1);
+        }
     }
     public ProcesarArchivoTest() {
     }
@@ -83,8 +85,8 @@ public class ProcesarArchivoTest {
         ProcesarArchivo instance = new ProcesarArchivo();
         List<String> expResult = new ArrayList<>();
         expResult.add(path+"/prueba.csv");
+        expResult.add(path+"/prueba1.csv");
         List<String> result = instance.ObtenerCSV(path);
-        //System.out.println(result.get(0));
         assertEquals(expResult,result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -97,18 +99,25 @@ public class ProcesarArchivoTest {
     public void testParser() throws Exception {
         System.out.println("Parser");
         crearArchivosTemp();
-        String path = DirPrueba.getRoot().toString();
+        String paths = DirPrueba.getRoot().toString();
         boolean saltarLinea = false;
         String separador = ",";
         ProcesarArchivo instance = new ProcesarArchivo();
         List<List<String>> expResult = new ArrayList<>();
         List<String> parse = new ArrayList<>();
+        List<String> parse1 = new ArrayList<>();
         parse.add("esto");
-        parse.add(" es");
-        parse.add(" una");
-        parse.add(" prueba");
-        expResult.add(parse);
-        List<List<String>> result = instance.Parser(path+"/prueba.csv", saltarLinea, separador);
+        parse.add("es");
+        parse.add("una");
+        parse.add("prueba");
+        parse1.add("esto");
+        parse1.add("es");
+        parse1.add("otra");
+        parse1.add("prueba");
+        expResult.add(0, parse);
+        expResult.add(1, parse1); 
+        List<String> path = instance.ObtenerCSV(paths);
+        List<List<String>> result = instance.Parser(path, saltarLinea, separador);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
