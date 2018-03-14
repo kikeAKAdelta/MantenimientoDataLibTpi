@@ -13,6 +13,10 @@ public class Marca {
     private int id_marca;
     private String Marca;
 
+    public Marca(){
+        
+    }
+    
     public Marca(int id_marca, String Marca) {
         this.id_marca = id_marca;
         this.Marca = Marca;
