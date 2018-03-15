@@ -24,7 +24,7 @@ public class Marca {
 
     @Override
     public String toString() {	
-        return "Marca [id=" + id_marca + ", Marca=" + Marca  + "]";	
+        return "Marca [id="+id_marca+", Marca="+Marca + "]";	
     }
     
     public int getId_marca() {

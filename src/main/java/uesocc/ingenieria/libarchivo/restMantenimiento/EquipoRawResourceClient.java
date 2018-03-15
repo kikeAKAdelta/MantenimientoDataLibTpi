@@ -27,16 +27,7 @@ public class EquipoRawResourceClient {
         this.cliente = ClientBuilder.newClient();
         this.raiz = cliente.target(URL_RESOURCE);
     }
-    public Equipo[] ObtenerEquipo(){
-        Response respuesta = cliente.target(URL_RESOURCE).request().get();
-        if (respuesta!=null && respuesta.getStatus()==Response.Status.OK.getStatusCode()) {
-            Equipo[] lista = respuesta.readEntity(Equipo[].class);
-            return lista;
-        }
-        return null;
-    
-    }
-    
+   
     public URI CrearEquipo(Equipo equipo) throws JSONException{
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (equipo!=null ) {  
@@ -49,19 +40,6 @@ public class EquipoRawResourceClient {
     return null;
     }
     
-    public URI ActualizarEquipo(Equipo equipo){
-        if (equipo!=null) {
-            Response respuesta = raiz.request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON).put(Entity.entity(equipo.toString(), MediaType.APPLICATION_JSON));
-            if (respuesta !=null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
-                return respuesta.getLocation();
-            }
-        } 
-        return null;
     
-    }
-    public void EliminarEquipo(int id) {
-    Response response = cliente.target(URL_RESOURCE).path(String.valueOf(id)).request().delete();
-    System.out.println("Status code:" + response.getStatus());
-  }
     
 }

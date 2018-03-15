@@ -31,20 +31,10 @@ public class MarcaRawResourceClient {
         this.cliente = ClientBuilder.newClient();
         this.raiz = cliente.target(URL_RESOURCE);
     }
-    public Marca[] ObtenerMarca(){
-        Response respuesta = cliente.target(URL_RESOURCE).request().get();
-        if (respuesta!=null && respuesta.getStatus()==Response.Status.OK.getStatusCode()) {
-            Marca[] lista = respuesta.readEntity(Marca[].class);
-            return lista;
-        }
-        return null;
-    
-    }
-    
     public URI CrearMarca(Marca nombre) throws JSONException{
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (nombre!=null ) {  
-            Response respuesta = raiz.path("marcaraw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(nombre.toString(), MediaType.APPLICATION_JSON));
+            Response respuesta = raiz.request().post(Entity.entity(nombre, MediaType.APPLICATION_JSON_TYPE));
             if (respuesta!= null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
                 
                 return respuesta.getLocation();
@@ -52,20 +42,4 @@ public class MarcaRawResourceClient {
         }  
     return null;
     }
-    
-    public URI ActualizarMarca(Marca marca){
-        if (marca!=null) {
-            Response respuesta = raiz.request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON).put(Entity.entity(marca.toString(), MediaType.APPLICATION_JSON));
-            if (respuesta !=null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
-                return respuesta.getLocation();
-            }
-        } 
-        return null;
-    
-    }
-    public void EliminarMarca(int id) {
-    Response response = cliente.target(URL_RESOURCE).path(String.valueOf(id)).request().delete();
-    System.out.println("Status code:" + response.getStatus());
-  }
-    
 }

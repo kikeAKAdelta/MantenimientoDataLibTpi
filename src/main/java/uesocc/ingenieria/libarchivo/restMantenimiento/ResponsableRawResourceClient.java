@@ -28,16 +28,7 @@ public class ResponsableRawResourceClient {
         this.cliente = ClientBuilder.newClient();
         this.raiz = cliente.target(URL_RESOURCE);
     }
-    public Responsable[] ObtenerSistema(){
-        Response respuesta = cliente.target(URL_RESOURCE).request().get();
-        if (respuesta!=null && respuesta.getStatus()==Response.Status.OK.getStatusCode()) {
-            Responsable[] lista = respuesta.readEntity(Responsable[].class);
-            return lista;
-        }
-        return null;
-    
-    }
-    
+
     public URI CrearSistema(Responsable responsable) throws JSONException{
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (responsable!=null ) {  
@@ -50,18 +41,5 @@ public class ResponsableRawResourceClient {
     return null;
     }
     
-    public URI ActualizarSistema(Responsable responsable){
-        if (responsable!=null) {
-            Response respuesta = raiz.request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON).put(Entity.entity(responsable.toString(), MediaType.APPLICATION_JSON));
-            if (respuesta !=null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
-                return respuesta.getLocation();
-            }
-        } 
-        return null;
     
-    }
-    public void EliminarEquipo(int id) {
-    Response response = cliente.target(URL_RESOURCE).path(String.valueOf(id)).request().delete();
-    System.out.println("Status code:" + response.getStatus());
-  }
 }
