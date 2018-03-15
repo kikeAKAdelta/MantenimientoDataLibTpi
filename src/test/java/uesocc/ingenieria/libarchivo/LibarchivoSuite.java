@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
  * @author sergio
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({uesocc.ingenieria.libarchivo.MantenimientoRawResourceClientTest.class, uesocc.ingenieria.libarchivo.ProcesarArchivoTest.class})
+@Suite.SuiteClasses({uesocc.ingenieria.libarchivo.ProcesarArchivoTest.class})
 public class LibarchivoSuite {
 
     @BeforeClass

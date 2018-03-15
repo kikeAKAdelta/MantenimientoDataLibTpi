@@ -21,6 +21,10 @@ public class Responsable {
         this.id_responsable = id_responsable;
         this.responsable = responsable;
     }
+    @Override
+    public String toString() {	
+        return "Marca [id=" + id_responsable + ", Responsable=" + responsable  + "]";	
+    }
 
     public int getId_responsable() {
         return id_responsable;

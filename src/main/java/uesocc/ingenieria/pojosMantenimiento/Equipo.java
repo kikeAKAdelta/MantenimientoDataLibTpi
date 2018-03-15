@@ -27,6 +27,10 @@ public class Equipo {
     public String getNumero_serie() {
         return numero_serie;
     }
+    @Override
+    public String toString() {
+        return "Marca [idSO=" + id_sistemaOperativo + ", idModelo=" + id_modelo + ", idMarca=" + id_marca + ", numero_serie=" + numero_serie + ", numero_inventario=" + numero_inventario +"]";
+    }
 
     public void setNumero_serie(String numero_serie) {
         this.numero_serie = numero_serie;

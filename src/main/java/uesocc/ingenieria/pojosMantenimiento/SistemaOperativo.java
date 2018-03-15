@@ -21,7 +21,10 @@ public class SistemaOperativo {
         this.version = version;
         this.licencia = licencia;
     }
-
+    @Override
+    public String toString() {	
+        return "Marca [id=" + id_sistemaOperativo + ", SO=" + sistemaOperativo  +", version="+ version + ", licencia="+licencia+"]";	
+    }
     public int getId_sistemaOperativo() {
         return id_sistemaOperativo;
     }

@@ -21,6 +21,11 @@ public class Modelo {
         this.id_modelo = id_modelo;
         this.modelo = modelo;
     }
+    @Override
+    public String toString(){
+        return "Modelo [id="+id_modelo+", Modelo="+modelo+"]";
+    
+    }
     
 
     public int getId_modelo() {

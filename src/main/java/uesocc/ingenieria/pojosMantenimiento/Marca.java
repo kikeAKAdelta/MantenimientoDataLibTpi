@@ -22,6 +22,11 @@ public class Marca {
         this.Marca = Marca;
     }
 
+    @Override
+    public String toString() {	
+        return "Marca [id=" + id_marca + ", Marca=" + Marca  + "]";	
+    }
+    
     public int getId_marca() {
         return id_marca;
     }
