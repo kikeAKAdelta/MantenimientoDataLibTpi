@@ -22,7 +22,7 @@ import uesocc.ingenieria.pojosMantenimiento.Modelo;
 public class ModeloRawResourceClient {
     Client cliente;
     WebTarget raiz;
-    private final static String URL_RESOURCE = "http://localhost:8080/mantenimiento-war/ws/Marca";
+    private final static String URL_RESOURCE = "http://localhost:8080/mantenimiento-war/ws/Modelo";
     public ModeloRawResourceClient(){
         this.cliente = ClientBuilder.newClient();
         this.raiz = cliente.target(URL_RESOURCE);

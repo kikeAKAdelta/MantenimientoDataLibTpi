@@ -13,34 +13,34 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.codehaus.jettison.json.JSONException;
-import uesocc.ingenieria.pojosMantenimiento.Equipo;
+import uesocc.ingenieria.pojosMantenimiento.SistemaOperativo;
 
 /**
  *
  * @author sergio
  */
-public class EquipoRawResourceClient {
+public class SistemaOperativoRawResourceClient {
     Client cliente;
     WebTarget raiz;
     private final static String URL_RESOURCE = "http://localhost:8080/mantenimiento-war/ws/Equipo";
-    public EquipoRawResourceClient(){
+    public SistemaOperativoRawResourceClient(){
         this.cliente = ClientBuilder.newClient();
         this.raiz = cliente.target(URL_RESOURCE);
     }
-    public Equipo[] ObtenerEquipo(){
+    public SistemaOperativo[] ObtenerSistema(){
         Response respuesta = cliente.target(URL_RESOURCE).request().get();
         if (respuesta!=null && respuesta.getStatus()==Response.Status.OK.getStatusCode()) {
-            Equipo[] lista = respuesta.readEntity(Equipo[].class);
+            SistemaOperativo[] lista = respuesta.readEntity(SistemaOperativo[].class);
             return lista;
         }
         return null;
     
     }
     
-    public URI CrearEquipo(Equipo equipo) throws JSONException{
+    public URI CrearSistema(SistemaOperativo sistema) throws JSONException{
         //JSONArray jsonMantenimiento = new JSONArray();     
-        if (equipo!=null ) {  
-            Response respuesta = raiz.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(equipo.toString(), MediaType.APPLICATION_JSON));
+        if (sistema!=null ) {  
+            Response respuesta = raiz.path("marcajeraw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(sistema.toString(), MediaType.APPLICATION_JSON));
             if (respuesta!= null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
                 
                 return respuesta.getLocation();
@@ -49,9 +49,9 @@ public class EquipoRawResourceClient {
     return null;
     }
     
-    public URI ActualizarEquipo(Equipo equipo){
-        if (equipo!=null) {
-            Response respuesta = raiz.request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON).put(Entity.entity(equipo.toString(), MediaType.APPLICATION_JSON));
+    public URI ActualizarSistema(SistemaOperativo sistema){
+        if (sistema!=null) {
+            Response respuesta = raiz.request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON).put(Entity.entity(sistema.toString(), MediaType.APPLICATION_JSON));
             if (respuesta !=null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
                 return respuesta.getLocation();
             }
@@ -63,5 +63,4 @@ public class EquipoRawResourceClient {
     Response response = cliente.target(URL_RESOURCE).path(String.valueOf(id)).request().delete();
     System.out.println("Status code:" + response.getStatus());
   }
-    
 }
