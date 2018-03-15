@@ -40,7 +40,7 @@ public class EquipoRawResourceClient {
     public URI CrearEquipo(Equipo equipo) throws JSONException{
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (equipo!=null ) {  
-            Response respuesta = raiz.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(equipo.toString(), MediaType.APPLICATION_JSON));
+            Response respuesta = raiz.path("equiporaw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(equipo.toString(), MediaType.APPLICATION_JSON));
             if (respuesta!= null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
                 
                 return respuesta.getLocation();

@@ -13,35 +13,35 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.codehaus.jettison.json.JSONException;
-import uesocc.ingenieria.pojosMantenimiento.SistemaOperativo;
+import uesocc.ingenieria.pojosMantenimiento.Responsable;
 
 /**
  *
  * @author sergio
  */
-public class SistemaOperativoRawResourceClient {
+public class ResponsableRawResourceClient {
     Client cliente;
     WebTarget raiz;
     
     private final static String URL_RESOURCE = "http://localhost:8080/mantenimiento-war/ws/SistemaOperativo";
-    public SistemaOperativoRawResourceClient(){
+    public ResponsableRawResourceClient(){
         this.cliente = ClientBuilder.newClient();
         this.raiz = cliente.target(URL_RESOURCE);
     }
-    public SistemaOperativo[] ObtenerSistema(){
+    public Responsable[] ObtenerSistema(){
         Response respuesta = cliente.target(URL_RESOURCE).request().get();
         if (respuesta!=null && respuesta.getStatus()==Response.Status.OK.getStatusCode()) {
-            SistemaOperativo[] lista = respuesta.readEntity(SistemaOperativo[].class);
+            Responsable[] lista = respuesta.readEntity(Responsable[].class);
             return lista;
         }
         return null;
     
     }
     
-    public URI CrearSistema(SistemaOperativo sistema) throws JSONException{
+    public URI CrearSistema(Responsable responsable) throws JSONException{
         //JSONArray jsonMantenimiento = new JSONArray();     
-        if (sistema!=null ) {  
-            Response respuesta = raiz.path("SistemaOperativoraw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(sistema.toString(), MediaType.APPLICATION_JSON));
+        if (responsable!=null ) {  
+            Response respuesta = raiz.path("responsableraw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(responsable.toString(), MediaType.APPLICATION_JSON));
             if (respuesta!= null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
                 
                 return respuesta.getLocation();
@@ -50,9 +50,9 @@ public class SistemaOperativoRawResourceClient {
     return null;
     }
     
-    public URI ActualizarSistema(SistemaOperativo sistema){
-        if (sistema!=null) {
-            Response respuesta = raiz.request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON).put(Entity.entity(sistema.toString(), MediaType.APPLICATION_JSON));
+    public URI ActualizarSistema(Responsable responsable){
+        if (responsable!=null) {
+            Response respuesta = raiz.request(MediaType.APPLICATION_JSON_TYPE).accept(MediaType.APPLICATION_JSON).put(Entity.entity(responsable.toString(), MediaType.APPLICATION_JSON));
             if (respuesta !=null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
                 return respuesta.getLocation();
             }

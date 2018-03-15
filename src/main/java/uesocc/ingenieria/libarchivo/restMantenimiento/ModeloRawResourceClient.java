@@ -40,7 +40,7 @@ public class ModeloRawResourceClient {
     public URI CrearModelo(Modelo modelo) throws JSONException{
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (modelo!=null ) {  
-            Response respuesta = raiz.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(modelo.toString(), MediaType.APPLICATION_JSON));
+            Response respuesta = raiz.path("modeloraw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(modelo.toString(), MediaType.APPLICATION_JSON));
             if (respuesta!= null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
                 
                 return respuesta.getLocation();

@@ -6,6 +6,8 @@
 package uesocc.ingenieria.libarchivo.restMantenimiento;
 
 import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -42,7 +44,7 @@ public class MarcaRawResourceClient {
     public URI CrearMarca(Marca nombre) throws JSONException{
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (nombre!=null ) {  
-            Response respuesta = raiz.request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(nombre.toString(), MediaType.APPLICATION_JSON));
+            Response respuesta = raiz.path("marcaraw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(nombre.toString(), MediaType.APPLICATION_JSON));
             if (respuesta!= null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
                 
                 return respuesta.getLocation();
