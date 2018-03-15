@@ -34,8 +34,9 @@ public class MarcaRawResourceClient {
     public URI CrearMarca(Marca nombre) throws JSONException{
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (nombre!=null ) {  
-            Response respuesta = raiz.request().post(Entity.entity(nombre, MediaType.APPLICATION_JSON_TYPE));
-            if (respuesta!= null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
+            Response respuesta = raiz.request().post(Entity.entity(nombre.toString(), MediaType.APPLICATION_JSON_TYPE));
+            
+            if (respuesta!=null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
                 
                 return respuesta.getLocation();
             }

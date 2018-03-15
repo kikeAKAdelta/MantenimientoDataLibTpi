@@ -21,6 +21,7 @@ public class SistemaOperativo {
         this.version = version;
         this.licencia = licencia;
     }
+    public SistemaOperativo(){}
     @Override
     public String toString() {	
         return "Marca [id=" + id_sistemaOperativo + ", SO=" + sistemaOperativo  +", version="+ version + ", licencia="+licencia+"]";	

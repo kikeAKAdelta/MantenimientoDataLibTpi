@@ -24,6 +24,8 @@ public class Equipo {
         this.id_sistemaOperativo = id_sistemaOperativo;
     }
 
+    public Equipo() {}
+
     public String getNumero_serie() {
         return numero_serie;
     }

@@ -6,12 +6,16 @@
 package uesocc.ingenieria.libarchivo.restMantenimiento;
 
 import java.net.URI;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.mockito.Mockito;
 import uesocc.ingenieria.pojosMantenimiento.Modelo;
 
 /**
@@ -19,12 +23,16 @@ import uesocc.ingenieria.pojosMantenimiento.Modelo;
  * @author sergio
  */
 public class ModeloRawResourceClientTest {
-    
+    static Client cliente;
+    static WebTarget raiz;
     public ModeloRawResourceClientTest() {
     }
     
     @BeforeClass
     public static void setUpClass() {
+        cliente = ClientBuilder.newClient();
+        raiz = cliente.target("http://localhost:8080/mantenimiento-war/ws/Marca");
+        
     }
     
     @AfterClass
@@ -44,14 +52,15 @@ public class ModeloRawResourceClientTest {
      */
     @Test
     public void testCrearModelo() throws Exception {
-        System.out.println("CrearModelo");
-        Modelo modelo = null;
-        ModeloRawResourceClient instance = new ModeloRawResourceClient();
-        URI expResult = null;
-        URI result = instance.CrearModelo(modelo);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       System.out.println("CrearMarca");
+        Modelo nombre = new Modelo();
+        nombre.setId_modelo(1);
+        nombre.setModelo("dell");
+        
+        ModeloRawResourceClient marca = Mockito.mock(ModeloRawResourceClient.class);
+        Mockito.when(marca.CrearModelo(nombre)).thenReturn(raiz.getUri());
+        System.out.println(marca.CrearModelo(nombre));
+        assertEquals(raiz.getUri(), marca.CrearModelo(nombre));
     }
     
 }

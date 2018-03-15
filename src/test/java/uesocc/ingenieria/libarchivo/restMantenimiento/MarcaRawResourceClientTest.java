@@ -56,8 +56,10 @@ public class MarcaRawResourceClientTest {
         Marca nombre = new Marca();
         nombre.setId_marca(1);
         nombre.setMarca("dell");
+        
         MarcaRawResourceClient marca = Mockito.mock(MarcaRawResourceClient.class);
-        System.out.println(nombre);
+        Mockito.when(marca.CrearMarca(nombre)).thenReturn(raiz.getUri());
+        System.out.println(marca.CrearMarca(nombre));
         assertEquals(raiz.getUri(), marca.CrearMarca(nombre));
         
     }

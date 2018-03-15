@@ -29,7 +29,7 @@ public class ResponsableRawResourceClient {
         this.raiz = cliente.target(URL_RESOURCE);
     }
 
-    public URI CrearSistema(Responsable responsable) throws JSONException{
+    public URI CrearResponsable(Responsable responsable) throws JSONException{
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (responsable!=null ) {  
             Response respuesta = raiz.path("responsableraw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(responsable.toString(), MediaType.APPLICATION_JSON));
