@@ -12,7 +12,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.codehaus.jettison.json.JSONException;
 import uesocc.ingenieria.pojosMantenimiento.SistemaOperativo;
 
 /**
@@ -29,7 +28,7 @@ public class SistemaOperativoRawResourceClient {
         this.raiz = cliente.target(URL_RESOURCE);
     }
     
-    public URI CrearSistema(SistemaOperativo sistema) throws JSONException{
+    public URI CrearSistema(SistemaOperativo sistema){
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (sistema!=null ) {  
             Response respuesta = raiz.path("SistemaOperativoraw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(sistema.toString(), MediaType.APPLICATION_JSON));

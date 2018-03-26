@@ -12,7 +12,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.codehaus.jettison.json.JSONException;
 import uesocc.ingenieria.pojosMantenimiento.Equipo;
 
 /**
@@ -28,7 +27,7 @@ public class EquipoRawResourceClient {
         this.raiz = cliente.target(URL_RESOURCE);
     }
    
-    public URI CrearEquipo(Equipo equipo) throws JSONException{
+    public URI CrearEquipo(Equipo equipo){
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (equipo!=null ) {  
             Response respuesta = raiz.path("equiporaw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(equipo.toString(), MediaType.APPLICATION_JSON));

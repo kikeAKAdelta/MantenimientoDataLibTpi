@@ -12,7 +12,6 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.codehaus.jettison.json.JSONException;
 import uesocc.ingenieria.pojosMantenimiento.Modelo;
 
 /**
@@ -29,7 +28,7 @@ public class ModeloRawResourceClient {
     }
    
     
-    public URI CrearModelo(Modelo modelo) throws JSONException{
+    public URI CrearModelo(Modelo modelo) {
         //JSONArray jsonMantenimiento = new JSONArray();     
         if (modelo!=null ) {  
             Response respuesta = raiz.path("modeloraw").request(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(Entity.entity(modelo.toString(), MediaType.APPLICATION_JSON));
