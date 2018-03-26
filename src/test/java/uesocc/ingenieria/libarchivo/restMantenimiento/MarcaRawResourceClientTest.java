@@ -93,13 +93,13 @@ public class MarcaRawResourceClientTest {
         List<String> sublista=new ArrayList<String>();
         
         lista.add(sublista);
-        lista.get(0).add("perra");
-        lista.get(0).add("bitch");
+        lista.get(0).add("objeto 1");
+        lista.get(0).add("objeto 2");
         
         
         MarcaRawResourceClient instance = new MarcaRawResourceClient();
         URI expResult = URI.create("http://localhost:8080/mantenimiento/ws/marca");
-        URI result = instance.CrearMarca(lista);
+        URI result = instance.crearMarca(lista);
         
         assertEquals(expResult,result);
         // TODO review the generated test code and remove the default call to fail.

@@ -25,7 +25,7 @@ import java.util.stream.Stream;
  */
 public class ProcesarArchivo  implements Serializable{
     
-    public boolean Validar(final String path){
+    public boolean validar(final String path){
         //Path dir = Paths.get(path);
         if (path != null && path.trim().isEmpty()==false) {
             if(Paths.get(path).toFile().isDirectory()||Paths.get(path).toFile().isFile()){
@@ -35,8 +35,8 @@ public class ProcesarArchivo  implements Serializable{
         return false;
     }
     
-    public List<String> ObtenerCSV(String path) throws IOException{
-        if (Validar(path)) {
+    public List<String> obtenerCSV(String path) throws IOException{
+        if (validar(path)) {
         List<String> lista = null;
         try (Stream<Path> paths = Files.walk(Paths.get(path),1)) {//el 1 es para que solo vea los directorios
             lista = paths.filter(a-> 
@@ -52,10 +52,10 @@ public class ProcesarArchivo  implements Serializable{
         return null;
     }
     
-    public List<List<String>> Parser(final List<String> paths, final boolean saltarLinea, final String separador) throws IOException{
+    public List<List<String>> parser(final List<String> paths, final boolean saltarLinea, final String separador) throws IOException{
         List<List<String>> listado=new ArrayList<>();  //Algo asi como que una lista multidimensional     
         paths.forEach(p->{
-            if (Validar(p)) {
+            if (validar(p)) {
                 try (Stream<String> lines = Files.lines(Paths.get(p))) {
                     lines.skip(saltarLinea?1:0).filter(l->l.contains(separador)).
                             forEach(s -> {

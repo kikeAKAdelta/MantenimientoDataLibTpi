@@ -69,7 +69,7 @@ public class ProcesarArchivoTest {
         String path = DirPrueba.toString();
         ProcesarArchivo instance = new ProcesarArchivo();
         boolean expResult = false;
-        boolean result = instance.Validar(path);
+        boolean result = instance.validar(path);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -87,7 +87,7 @@ public class ProcesarArchivoTest {
         List<String> expResult = new ArrayList<>();
         expResult.add(path+"/prueba.csv");
         expResult.add(path+"/prueba1.csv");
-        List<String> result = instance.ObtenerCSV(path);
+        List<String> result = instance.obtenerCSV(path);
         assertEquals(expResult,result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");
@@ -113,8 +113,8 @@ public class ProcesarArchivoTest {
         parse1.addAll(Arrays.asList(otraPrueba));
         expResult.add(0, parse);
         expResult.add(1, parse1); 
-        List<String> path = instance.ObtenerCSV(paths);
-        List<List<String>> result = instance.Parser(path, saltarLinea, separador);
+        List<String> path = instance.obtenerCSV(paths);
+        List<List<String>> result = instance.parser(path, saltarLinea, separador);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         //fail("The test case is a prototype.");

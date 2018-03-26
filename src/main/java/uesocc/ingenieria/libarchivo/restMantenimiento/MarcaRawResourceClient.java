@@ -41,16 +41,22 @@ public class MarcaRawResourceClient {
     }
     
     
-    public URI CrearMarca(List<List<String>> lista){
-               
-                JsonObject nuevo=Json.createObjectBuilder().add("lista",lista.get(0).get(0).toString()).build();
+    public URI crearMarca(List<List<String>> lista){
+        for (List<String> list : lista) {
+            for (String elemento : list) {
+                JsonObject nuevo=Json.createObjectBuilder().add("marca",elemento).build();
                 Response respuesta = raiz.path("marca")
                         .request(MediaType.APPLICATION_JSON)
                         .post(Entity.json(nuevo));
                        
-                        if (respuesta!=null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
-                            return respuesta.getLocation();
-                        }
+                if (respuesta!=null && respuesta.getStatus()==Response.Status.CREATED.getStatusCode()) {
+                         return respuesta.getLocation();
+                }
+            }
+        }
+        
+        
+                
                  
         return null;
     }
